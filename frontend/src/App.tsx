@@ -1,39 +1,26 @@
-import { useEffect, useState } from "react";
-
-interface ZodiacSign {
-  id: number;
-  name: string;
-  description: string;
-}
+import React from "react";
+import "./app.css";
+import SignSelection from "./components/SignSelection";
 
 function App() {
-  const [zodiacSigns, setZodiacSigns] = useState<ZodiacSign[]>([]);
-
-  useEffect(() => {
-    // Daten vom Backend-Endpunkt abrufen
-    fetch("http://localhost:3000/api/zodiac-signs")
-      .then((response) => response.json())
-      .then((data) => {
-        setZodiacSigns(data); // Daten in den State speichern
-      })
-      .catch((error) => {
-        console.error("Fehler beim Abrufen der Daten:", error);
-      });
-  }, []);
 
   return (
-    <div>
-      <h1>Yours, Cosmic Guide.</h1>
-      <ul>
-        {zodiacSigns.map((sign) => (
-          <li key={sign.id}>
-            <strong>{sign.name}</strong>: {sign.description}
-          </li>
-        ))}
-      </ul>
+    <div className="app">
+      <header className="header">Sternzeichen-Guide</header>
+      <div className="container">
+        <p className="welcome">
+          Willkommen! Bitte wählen Sie Ihr Geburtsdatum, um Ihr Sternzeichen zu
+          entdecken:
+        </p>
+
+        {/* Dropdowns und Button */}
+        <div className="dropdown-container">
+          <SignSelection />
+        </div>
+
+      </div>
     </div>
   );
 }
 
 export default App;
-
